@@ -50,14 +50,24 @@ export const Tour = (props = {}) => {
 		setIndex(index);
 	}
 
+	const handleNext = () => {
+		handleStep((index + 1) % (elements.length))
+	}
+
 	const getPostion = () => {
 		return elements[index]?.target?.getBoundingClientRect()
 	}
+
 	const postion = getPostion(scroll)
 	const content = elements[index]?.content;
+
 	return (
 		<React.Fragment>
-		 	<div  style={{ width, height}} className="tour__background" >
+			 <div 
+				style={{ width, height}} 
+				className="tour__background"
+				onClick={handleNext}
+			>
 				{postion?.width &&
 					<React.Fragment> 
 						<div
