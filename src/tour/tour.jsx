@@ -23,34 +23,43 @@ export const Tour = (props = {}) => {
 
 	useEffect(() => {
 		document.addEventListener("scroll", handleScroll);
-		document.addEventListener("resize", handleResize);
+		window.addEventListener("resize", handleResize);
 
 		return function cleanEventListeners(){
 			document.removeEventListener("scroll", handleScroll);
-			document.removeEventListener("resize", handleResize);
+			window.removeEventListener("resize", handleResize);
 		}
-	})
+	});
+
+	const removeTransition = () => {
+		const ele = document.getElementById("tour__highlighter");
+		if(ele) ele.style.transition = "none";
+	}
+
+	const addTransition = () => {
+		const ele = document.getElementById("tour__highlighter");
+		if(ele) ele.style.transition = "all 100ms linear";
+	}
 
 	const handleResize = () => {
+		removeTransition()
 		setWidth(root?.offsetWidth);
 		setHeight(root?.offsetHeight);
 	}
 
 	const handleScroll = () => {
-		const ele = document.getElementById("tour__highlighter");
-		if(ele) {
-			ele.style.transition = "none";
-			setScroll(root?.scrollTop);
-		}
+		removeTransition()
+		setScroll(root?.scrollTop);
 	}
 
+
 	const handleStep = (index) => {
-		const ele = document.getElementById("tour__highlighter");
-		ele.style.transition = "all 100ms linear";
+		addTransition()
 		setIndex(index);
 	}
 
 	const handleNext = () => {
+		addTransition()
 		handleStep((index + 1) % (elements.length))
 	}
 
