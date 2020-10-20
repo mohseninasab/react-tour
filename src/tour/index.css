@@ -1,0 +1,83 @@
+.tour__background {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index: 10000;
+  mix-blend-mode: hard-light;
+  width: 100%;
+  height: 100vh;
+}
+.tour__selector {
+  border-radius: 4px;
+  position: fixed;
+  background-color: gray;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 100ms linear;
+  animation: beat 1s infinite;
+  box-shadow: 0 0 60px 10px #ff2f008c;
+}
+
+.tour__hand {
+  left: 90%;
+  top: 90%;
+  position: absolute;
+  width: 200px;
+  max-width: 30vw;
+}
+
+@keyframes beat {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.02);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.tour__content_box {
+  bottom: 50px;
+  color:white;
+  z-index: 20000;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffffff10;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.tour__nave_root{
+  position: fixed;
+  left: 0;
+  z-index: 20000;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tour__nave_container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.tour__nave_steps {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 5px;
+  transition: width 100ms linear;
+}
+.tour__nave_steps:hover {
+  cursor: pointer;
+}
+
+.tour__nav_Selected {
+  width: 20px;
+  background: orange;
+}
