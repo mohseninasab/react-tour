@@ -82,7 +82,7 @@ export const Tour = (props = {}) => {
 		const { handleClose = () => {} } = props;
 		switch(event.keyCode){
 			case 27:
-				props.handleClose();
+				handleClose();
 				break;
 			case 8:
 				handleBack();
