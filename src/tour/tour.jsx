@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navigate from "./navigate";
-import "./index.css"
+import CloseButton from "./closebutton";
 import hand from "./hand_gray.svg"
+import "./index.css"
 
 export const Tour = (props = {}) => {
 	const root = document.querySelector(props?.root || "html") || document.querySelector("html");
@@ -78,8 +79,12 @@ export const Tour = (props = {}) => {
 		return elements[index]?.target?.getBoundingClientRect()
 	}
 
-	const handleKeyPress = (event) => {
+	const handleClose = () => {
 		const { handleClose = () => {} } = props;
+		handleClose()
+	}
+
+	const handleKeyPress = (event) => {
 		switch(event.keyCode){
 			case 27:
 				handleClose();
@@ -115,6 +120,7 @@ export const Tour = (props = {}) => {
 
 	return (
 		<React.Fragment>
+			<CloseButton onClose={handleClose}/>
 			 <div 
 			 	tabIndex="0"
 				style={{ width, height}} 

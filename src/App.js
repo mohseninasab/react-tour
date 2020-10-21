@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import logo from './logo.svg';
 import Tour from './tour/';
 import Love from './love';
@@ -12,10 +12,10 @@ const steps = [
   {
     target: '[data-tour=tour__text]',
     content: (
-      <>
+      <Fragment>
         <h2>this is a text</h2>
         <p> the box below will who how scroll ...</p>
-      </>
+      </Fragment>
     )
   },
   {
@@ -25,10 +25,10 @@ const steps = [
   {
     target: '[data-tour=tour__box]',
     content: (
-        <>
+        <Fragment>
           <h2>this is the box</h2>
           <p> the box below will who how scroll ...</p>
-        </>
+        </Fragment>
       )
   },
 
