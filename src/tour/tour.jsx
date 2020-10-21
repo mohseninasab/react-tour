@@ -68,8 +68,46 @@ export const Tour = (props = {}) => {
 		handleStep((index + 1) % (elements.length))
 	}
 
+	const handleBack = () => {
+		addTransition()
+		const nextIndex = index > 0 ? index - 1 : elements.length - 1 
+		handleStep(nextIndex)
+	}
+
 	const getPostion = () => {
 		return elements[index]?.target?.getBoundingClientRect()
+	}
+
+	const handleKeyPress = (event) => {
+		const { handleClose = () => {} } = props;
+		switch(event.keyCode){
+			case 27:
+				props.handleClose();
+				break;
+			case 8:
+				handleBack();
+				break;
+			case 37:
+				handleBack();
+				break;
+			case 38:
+				handleBack();
+				break;
+			case 39:
+				handleNext();
+				break;
+			case 40:
+				handleNext();
+				break;
+			case 32:
+				handleNext();
+				break;
+			case 13:
+				handleNext();
+				break;
+			default:
+				break
+		}
 	}
 
 	const postion = getPostion(scroll)
@@ -78,10 +116,13 @@ export const Tour = (props = {}) => {
 	return (
 		<React.Fragment>
 			 <div 
+			 	tabIndex="0"
 				style={{ width, height}} 
 				className="tour__background"
 				onClick={handleNext}
 				onWheel={handleScroll}
+				onKeyDown={handleKeyPress}
+				
 			>
 				{postion?.width &&
 					<React.Fragment> 
@@ -101,7 +142,7 @@ export const Tour = (props = {}) => {
 					</React.Fragment>
 				}
 	 		</div>
-	 		<Navigate content={content} steps={steps} currentStep={index} handleStep={handleStep}/>
+	 		<Navigate onWheel={handleScroll} content={content} steps={steps} currentStep={index} handleStep={handleStep}/>
 
 		</React.Fragment>
 	)

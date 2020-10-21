@@ -55,6 +55,7 @@ function App() {
 
           <Tour
             open={isOpen}
+            handleClose={() => { setOpen(false) }}
             root='[data-tour=root]'
             steps={steps}
           />
