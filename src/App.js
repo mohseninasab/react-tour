@@ -42,31 +42,39 @@ function App() {
     setOpen(!isOpen)
   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <Love onClick={toggleTour}/>
+    <div className="root">
 
-        <Tour
-          open={isOpen}
-          // root='[data-tour=root]'
-          steps={steps}
-        />
+      <div className="sidebar">
+        <button onClick={toggleTour}>
+          <Love/> START TOUR
+        </button> 
+      </div>
 
-        <img data-tour="tour__logo" src={logo} className="App-logo" alt="logo" />
-        <p data-tour="tour__text">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          data-tour="tour__link"
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <div data-tour="tour__box" className="box" />
-      </header>
+      <div className="App" data-tour="root">
+        <header className="App-header">
+
+          <Tour
+            open={isOpen}
+            root='[data-tour=root]'
+            steps={steps}
+          />
+
+          <img data-tour="tour__logo" src={logo} className="App-logo" alt="logo" />
+          <p data-tour="tour__text">
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            data-tour="tour__link"
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          <div data-tour="tour__box" className="box" />
+        </header>
+      </div>
     </div>
   );
 }

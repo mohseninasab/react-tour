@@ -4,10 +4,13 @@ import "./index.css"
 import hand from "./hand_gray.svg"
 
 export const Tour = (props = {}) => {
-	const root = document.querySelector(props?.root || "html")
+	const root = document.querySelector(props?.root || "html") || document.querySelector("html");
+	const html = document.querySelector("html");
+	const position = html.getBoundingClientRect();
+
 	const { steps = [] } = props
-	const [width, setWidth] = useState(root?.offsetWidth)
-	const [height, setHeight] = useState(root?.offsetHeight)
+	const [width, setWidth] = useState(position?.width)
+	const [height, setHeight] = useState(position?.height)
 	const [elements, setElements] = useState([])
 	const [index, setIndex] = useState(0)
 	const [scroll, setScroll] = useState(0)
@@ -43,12 +46,14 @@ export const Tour = (props = {}) => {
 
 	const handleResize = () => {
 		removeTransition()
-		setWidth(root?.offsetWidth);
-		setHeight(root?.offsetHeight);
+		const { width, height } = html.getBoundingClientRect();
+		setWidth(width);
+		setHeight(height);
 	}
 
-	const handleScroll = () => {
+	const handleScroll = (event) => {
 		removeTransition()
+		root.scrollTop += event.deltaY
 		setScroll(root?.scrollTop);
 	}
 
@@ -76,6 +81,7 @@ export const Tour = (props = {}) => {
 				style={{ width, height}} 
 				className="tour__background"
 				onClick={handleNext}
+				onWheel={handleScroll}
 			>
 				{postion?.width &&
 					<React.Fragment> 
