@@ -95,6 +95,7 @@
   position: fixed;
   top: 20px;
   right: 20px;
+  z-index: 20000;
 }
 .tour__close_button:hover{
   background: #ffffff70;
