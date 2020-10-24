@@ -20,6 +20,7 @@ export const Tour = (props = {}) => {
 		const elements = steps.map(item => ({
 			target: document.querySelector(item.target),
 			content: item.content,
+			action: item.action
 		}));
 		
 		setElements(elements);
@@ -84,6 +85,18 @@ export const Tour = (props = {}) => {
 		handleClose()
 	}
 
+	const handleScreenClick = (event) => {
+		const {name} = event.target?.dataset;
+		const element = elements[index];
+
+		if(name === "highlighter") {
+			element?.action ? element.action() && handleNext(): handleNext()
+		} else {
+			handleNext()
+		}
+		
+	}
+
 	const handleKeyPress = (event) => {
 		switch(event.keyCode){
 			case 27:
@@ -115,7 +128,7 @@ export const Tour = (props = {}) => {
 		}
 	}
 
-	const postion = getPostion(scroll)
+	const postion = getPostion(scroll);
 	const content = elements[index]?.content;
 
 	return (
@@ -125,7 +138,7 @@ export const Tour = (props = {}) => {
 			 	tabIndex="0"
 				style={{ width, height}} 
 				className="tour__background"
-				onClick={handleNext}
+				onClick={handleScreenClick}
 				onWheel={handleScroll}
 				onKeyDown={handleKeyPress}
 				
@@ -134,6 +147,7 @@ export const Tour = (props = {}) => {
 					<React.Fragment> 
 						<div
 							className="tour__selector"
+							data-name="highlighter"
 							id="tour__highlighter"
 							style={{
 								width: postion?.width + 10,

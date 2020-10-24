@@ -51,6 +51,8 @@
   font-size: 1rem;
   margin-bottom: 10px;
   user-select: none;
+  position: absolute;
+    bottom: calc(100% + 10px);
 }
 
 .tour__nave_root{
@@ -62,6 +64,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 0;
 }
 
 .tour__nave_container{

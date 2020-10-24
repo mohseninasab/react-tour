@@ -4,36 +4,6 @@ import Tour from './tour/';
 import Love from './love';
 import './App.css';
 
-const steps = [
-  {
-    target: '[data-tour=tour__logo]',
-    content: 'this is the logo'
-  },
-  {
-    target: '[data-tour=tour__text]',
-    content: (
-      <Fragment>
-        <h2>this is a text</h2>
-        <p> the box below will who how scroll ...</p>
-      </Fragment>
-    )
-  },
-  {
-    target: '[data-tour=tour__link]',
-    content: 'link to react docs'
-  },
-  {
-    target: '[data-tour=tour__box]',
-    content: (
-        <Fragment>
-          <h2>this is the box</h2>
-          <p> the box below will who how scroll ...</p>
-        </Fragment>
-      )
-  },
-
-]
-
 function App() {
   const [isOpen, setOpen] = React.useState(false);
 
@@ -41,6 +11,43 @@ function App() {
     if(isOpen) document.getElementsByTagName("html")[0].style.overflow = "auto"
     setOpen(!isOpen)
   }
+
+  const steps = [
+    {
+      target: '[data-tour=tour__logo]',
+      content: 'this is the logo',
+    },
+    {
+      target: '[data-tour=tour__text]',
+      content: (
+        <Fragment>
+          <h2>this is a text</h2>
+          <p> the box below will who how scroll ...</p>
+        </Fragment>
+      ),
+    },
+    {
+      target: '[data-tour=tour__link]',
+      content: 'link to react docs',
+    },
+    {
+      target: '[data-tour=tour__box]',
+      content: (
+        <Fragment>
+          <h2>this is the box</h2>
+          <p> the box below will who how scroll ...</p>
+          <p> click on it to close the tour</p>
+        </Fragment>
+      ),
+      action: () => {
+        setOpen(false)
+      }
+
+    },
+
+  
+  ];
+
   return (
     <div className="root">
 
