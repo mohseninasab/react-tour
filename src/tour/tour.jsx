@@ -92,9 +92,23 @@ export const Tour = (props = {}) => {
 		const element = elements[index];
 
 		if(name === "highlighter") {
-			element?.action ? element.action() && handleNext(): handleNext()
+			if(element?.action) {
+				const nextMove = element.action();
+				if(nextMove === true || nextMove === undefined){
+					handleNext();
+				} else if(nextMove === false){
+					setIndex(index)
+				} else if(nextMove >= 0 && nextMove < elements.length){
+					setIndex(nextMove);
+				} else {
+					console.error(`the return should be a number of boolean but you returning "${nextMove}"`);
+				}
+				
+			} else {
+				handleNext();
+			}
 		} else {
-			handleNext()
+			handleNext();
 		}
 		
 	}

@@ -46,6 +46,7 @@ class App extends React.PureComponent {
       ),
       action: () => {
         this.setState({isOpen:false})
+        return 1;
       }
 
     },
