@@ -1,18 +1,23 @@
 import React, { Fragment } from 'react';
 import logo from './logo.svg';
-import Tour from './tour/';
+import Tour, {invokeAfterRender} from './tour/';
 import Love from './love';
 import './App.css';
 
-function App() {
-  const [isOpen, setOpen] = React.useState(false);
+class App extends React.PureComponent {
 
-  const toggleTour = () => {
-    if(isOpen) document.getElementsByTagName("html")[0].style.overflow = "auto"
-    setOpen(!isOpen)
+  constructor(props){
+    super(props);
+    this.state = {
+      isOpen: false
+    }
   }
 
-  const steps = [
+  toggleTour = () => {
+    this.setState({isOpen: !this.state.isOpen})
+  }
+
+  steps = [
     {
       target: '[data-tour=tour__logo]',
       content: 'this is the logo',
@@ -40,51 +45,58 @@ function App() {
         </Fragment>
       ),
       action: () => {
-        setOpen(false)
+        this.setState({isOpen:false})
       }
 
     },
-
-  
   ];
 
-  return (
-    <div className="root">
+  componentDidMount = () => {
+    invokeAfterRender().then(() => {
+      this.setState({isOpen: true})
+    })
+  }
 
-      <div className="sidebar">
-        <button onClick={toggleTour}>
-          <Love/> START TOUR
-        </button> 
+
+  render() {
+    return (
+      <div className="root">
+
+        <div className="sidebar">
+          <button onClick={this.toggleTour}>
+            <Love/> START TOUR
+          </button> 
+        </div>
+
+        <div className="App" data-tour="root">
+          <header className="App-header">
+
+            <Tour
+              open={this.state.isOpen}
+              handleClose={() => { this.setState({isOpen:false}) }}
+              root='[data-tour=root]'
+              steps={this.steps}
+            />
+
+            <img width="400px"  data-tour="tour__logo" src={logo} className="App-logo" alt="logo" />
+            <p data-tour="tour__text">
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              data-tour="tour__link"
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a>
+            <div data-tour="tour__box" className="box" />
+          </header>
+        </div>
       </div>
-
-      <div className="App" data-tour="root">
-        <header className="App-header">
-
-          <Tour
-            open={isOpen}
-            handleClose={() => { setOpen(false) }}
-            root='[data-tour=root]'
-            steps={steps}
-          />
-
-          <img data-tour="tour__logo" src={logo} className="App-logo" alt="logo" />
-          <p data-tour="tour__text">
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            data-tour="tour__link"
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <div data-tour="tour__box" className="box" />
-        </header>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

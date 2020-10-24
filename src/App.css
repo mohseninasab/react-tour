@@ -17,7 +17,7 @@
   padding: 20px;
   position: relative;
   box-shadow: -20px 0px 24px 0px #000000a6;
-  z-index: 20000;
+
 }
 
 .App-logo {
@@ -48,28 +48,24 @@ button {
   font-size: 14px;
   min-height: 34px;
   background-color: transparent;
-  border-radius: 4px;
-  border: 2px solid #0000005e;
-  color: #00000090;
+  border-radius: 20px;
+  border: 1px solid #0089ffbf;
+  color: #0089ffbf;
   transition: background-color 100ms ease-in-out, box-shadow 100ms ease-in-out;
-  position: relative;
-  z-index: 20000;
 }
 
 button:hover {
-  background-color: #00000026;
+  background-color: #0089ff21;
 }
 
 button:focus {
-  background-color: #00000040;
-    border: 1px solid #00000026;
-    box-shadow: 0 0 0 4px #009bff61;
-    outline: none
+  background-color: #0089ff21;
+  box-shadow: 0 0 0 4px #009bff61;
+  outline: none
 }
 
 button:active {
-  background-color: #00000040;
-  border: 2px solid #00000026;
+  background-color: #0089ff21;
 }
 
 .box{
@@ -80,8 +76,5 @@ button:active {
 }
 
 .love {
-  position: relative;
   color: white;
-  z-index: 20000;
-  transition: transform 150ms cubic-bezier(0.65, 0.02, 0.35, 0.97);
 }

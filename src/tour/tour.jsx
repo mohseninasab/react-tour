@@ -7,11 +7,10 @@ import "./index.css"
 export const Tour = (props = {}) => {
 	const root = document.querySelector(props?.root || "html") || document.querySelector("html");
 	const html = document.querySelector("html");
-	const position = html.getBoundingClientRect();
 
 	const { steps = [] } = props
-	const [width, setWidth] = useState(position?.width)
-	const [height, setHeight] = useState(position?.height)
+	const [width, setWidth] = useState(window.innerWidth)
+	const [height, setHeight] = useState(window.innerHeight)
 	const [elements, setElements] = useState([])
 	const [index, setIndex] = useState(0)
 	const [scroll, setScroll] = useState(0)
@@ -43,7 +42,7 @@ export const Tour = (props = {}) => {
 
 	const addTransition = () => {
 		const ele = document.getElementById("tour__highlighter");
-		if(ele) ele.style.transition = "all 100ms linear";
+		if(ele) ele.style.removeProperty("transition")
 	}
 
 	const handleResize = () => {
@@ -62,6 +61,9 @@ export const Tour = (props = {}) => {
 
 	const handleStep = (index) => {
 		addTransition()
+		const {width, height} = html.getBoundingClientRect();
+		setHeight(height)
+		setWidth(width)
 		setIndex(index);
 	}
 
@@ -76,7 +78,7 @@ export const Tour = (props = {}) => {
 		handleStep(nextIndex)
 	}
 
-	const getPostion = () => {
+	const getPosition = () => {
 		return elements[index]?.target?.getBoundingClientRect()
 	}
 
@@ -128,13 +130,13 @@ export const Tour = (props = {}) => {
 		}
 	}
 
-	const postion = getPostion(scroll);
+	const position = getPosition(scroll);
 	const content = elements[index]?.content;
-
 	return (
 		<React.Fragment>
 			<CloseButton onClose={handleClose}/>
-			 <div 
+			 <div
+			 	ref={(input) => { input && input.focus()}}
 			 	tabIndex="0"
 				style={{ width, height}} 
 				className="tour__background"
@@ -143,23 +145,25 @@ export const Tour = (props = {}) => {
 				onKeyDown={handleKeyPress}
 				
 			>
-				{postion?.width &&
+				{ position?.width !== undefined ?
 					<React.Fragment> 
 						<div
 							className="tour__selector"
 							data-name="highlighter"
 							id="tour__highlighter"
 							style={{
-								width: postion?.width + 10,
-								height: postion?.height + 10,
-								top: postion?.y - 5,
-								left: postion?.x - 5
+								width: position?.width + 10,
+								height: position?.height + 10,
+								top: position?.y - 5,
+								left: position?.x - 5
 							}}
 						>
 							<img className="tour__hand" src={hand} alt="pointer"/>
 						</div>
 						
 					</React.Fragment>
+					:
+					null
 				}
 	 		</div>
 	 		<Navigate onWheel={handleScroll} content={content} steps={steps} currentStep={index} handleStep={handleStep}/>
