@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import logo from './logo.svg';
 import Tour, {invokeAfterRender} from './tour/';
-import Love from './love';
 import './App.css';
 
 class App extends React.PureComponent {

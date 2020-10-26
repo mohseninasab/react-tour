@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navigate from "./navigate";
 import CloseButton from "./closebutton";
-import hand from "./hand_gray.svg"
 import "./index.css";
 
 export const Tour = (props = {}) => {
