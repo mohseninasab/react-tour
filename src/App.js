@@ -69,13 +69,6 @@ class App extends React.PureComponent {
   render() {
     return (
       <div className="root">
-
-        <div className="sidebar">
-          <button onClick={this.toggleTour}>
-            <Love/> START TOUR
-          </button> 
-        </div>
-
         <div className="App" data-tour="root">
           <header className="App-header">
 

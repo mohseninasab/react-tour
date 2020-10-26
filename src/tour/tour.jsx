@@ -174,8 +174,7 @@ export const Tour = (props = {}) => {
 								left: position?.x - 5
 							}}
 						>
-							
-							<object className="tour__hand" type="image/svg+xml" data={hand}>{"<-"}</object>
+							<div className="tour__hand"/>
 						</div>
 						
 					</React.Fragment>
