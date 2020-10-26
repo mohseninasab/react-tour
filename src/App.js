@@ -21,6 +21,9 @@ class App extends React.PureComponent {
     {
       target: '[data-tour=tour__logo]',
       content: 'this is the logo',
+      style: {
+        borderRadius: "0"
+      },
     },
     {
       target: '[data-tour=tour__text]',
@@ -44,6 +47,9 @@ class App extends React.PureComponent {
           <p> click on it to close the tour</p>
         </Fragment>
       ),
+      style: {
+        borderRadius: "0px"
+      },
       action: () => {
         this.setState({isOpen:false})
         return 1;

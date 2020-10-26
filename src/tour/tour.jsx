@@ -17,9 +17,8 @@ export const Tour = (props = {}) => {
 
 	useEffect(() => {
 		const elements = steps.map(item => ({
+			...item,
 			target: document.querySelector(item.target),
-			content: item.content,
-			action: item.action
 		}));
 		
 		setElements(elements);
@@ -146,6 +145,8 @@ export const Tour = (props = {}) => {
 
 	const position = getPosition(scroll);
 	const content = elements[index]?.content;
+	const ele = elements[index];
+	
 	return (
 		<React.Fragment>
 			<CloseButton onClose={handleClose}/>
@@ -166,6 +167,7 @@ export const Tour = (props = {}) => {
 							data-name="highlighter"
 							id="tour__highlighter"
 							style={{
+								...ele?.style,
 								width: position?.width + 10,
 								height: position?.height + 10,
 								top: position?.y - 5,
