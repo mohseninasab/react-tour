@@ -22,7 +22,8 @@ class App extends React.PureComponent {
       target: '[data-tour=tour__logo]',
       content: 'this is the logo',
       style: {
-        borderRadius: "0"
+        borderRadius: "0",
+        boxShadow: "rgb(0 182 255 / 55%) 0px 0px 60px 10px",
       },
     },
     {

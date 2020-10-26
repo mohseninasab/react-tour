@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navigate from "./navigate";
 import CloseButton from "./closebutton";
 import hand from "./hand_gray.svg"
-import "./index.css"
+import "./index.css";
 
 export const Tour = (props = {}) => {
 	const root = document.querySelector(props?.root || "html") || document.querySelector("html");
@@ -174,7 +174,8 @@ export const Tour = (props = {}) => {
 								left: position?.x - 5
 							}}
 						>
-							<img className="tour__hand" src={hand} alt="pointer"/>
+							
+							<object className="tour__hand" type="image/svg+xml" data={hand}>{"<-"}</object>
 						</div>
 						
 					</React.Fragment>
