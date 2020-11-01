@@ -14,14 +14,7 @@ export const Tour = (props = {}) => {
 	const [index, setIndex] = useState(0)
 	const [scroll, setScroll] = useState(0)
 
-	useEffect(() => {
-		const elements = steps.map(item => ({
-			...item,
-			target: document.querySelector(item.target),
-		}));
-		
-		setElements(elements);
-	},[steps]);
+	useEffect(() => { setElements(steps) },[steps]);
 
 	useEffect(() => {
 		document.addEventListener("scroll", handleScroll);
@@ -56,7 +49,6 @@ export const Tour = (props = {}) => {
 		setScroll(root?.scrollTop);
 	}
 
-
 	const handleStep = (index) => {
 		addTransition()
 		const {width, height} = html.getBoundingClientRect();
@@ -77,7 +69,9 @@ export const Tour = (props = {}) => {
 	}
 
 	const getPosition = () => {
-		return elements[index]?.target?.getBoundingClientRect()
+		const element = document.querySelector(elements[index]?.target)
+		console.log(element)
+		return element?.getBoundingClientRect()
 	}
 
 	const handleClose = () => {
