@@ -11,11 +11,11 @@ export const Tour = (props = {}) => {
 	const [width, setWidth] = useState(window.innerWidth)
 	const [height, setHeight] = useState(window.innerHeight)
 	const [elements, setElements] = useState([])
-	const [index, setIndex] = useState(0)
+	const [index, setIndex] = useState(props.defaultStep ? props.defaultStep : 0)
 	const [scroll, setScroll] = useState(0)
 
-	useEffect(() => { setElements(steps) },[steps]);
-
+	useEffect(() => { setElements(steps); console.log("render") },[steps]);
+	
 	useEffect(() => {
 		document.addEventListener("scroll", handleScroll);
 		window.addEventListener("resize", handleResize);
@@ -60,6 +60,7 @@ export const Tour = (props = {}) => {
 	const handleNext = () => {
 		addTransition()
 		handleStep((index + 1) % (elements.length))
+		if(index + 1 === elements.length && props.closeOnEnd) handleClose()
 	}
 
 	const handleBack = () => {
@@ -69,14 +70,12 @@ export const Tour = (props = {}) => {
 	}
 
 	const getPosition = () => {
-		const element = document.querySelector(elements[index]?.target)
-		console.log(element)
+		const element = document.querySelector(elements[index]?.target);
 		return element?.getBoundingClientRect()
 	}
 
 	const handleClose = () => {
-		const { handleClose = () => {} } = props;
-		handleClose()
+		props.handleClose && props.handleClose()
 	}
 
 	const handleScreenClick = (event) => {
@@ -102,8 +101,9 @@ export const Tour = (props = {}) => {
 		} else {
 			handleNext();
 		}
-		
 	}
+
+	const justifyHand = (x, y) => width - x < 200 ? {transform: "rotateY(180deg)", right: "90%", left: "auto"} : {};
 
 	const handleKeyPress = (event) => {
 		switch(event.keyCode){
@@ -167,7 +167,7 @@ export const Tour = (props = {}) => {
 								left: position?.x - 5
 							}}
 						>
-							<div className="tour__hand"/>
+							<div style={justifyHand(position.x, position.y)} className="tour__hand"/>
 						</div>
 						
 					</React.Fragment>

@@ -37,6 +37,10 @@ class App extends React.PureComponent {
     {
       target: '[data-tour=tour__link]',
       content: 'link to react docs',
+      style: {
+        boxShadow: '0 0 60px 10px #ff00c98c',
+        borderRadius: "0px"
+      }
     },
     {
       target: '[data-tour=tour__box]',
@@ -72,6 +76,7 @@ class App extends React.PureComponent {
           <header className="App-header">
 
             <Tour
+              closeOnEnd
               open={this.state.isOpen}
               handleClose={() => { this.setState({isOpen:false}) }}
               root='[data-tour=root]'
