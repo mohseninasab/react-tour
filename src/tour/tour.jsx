@@ -14,7 +14,7 @@ export const Tour = (props = {}) => {
 	const [index, setIndex] = useState(props.defaultStep ? props.defaultStep : 0)
 	const [scroll, setScroll] = useState(0)
 
-	useEffect(() => { setElements(steps); console.log("render") },[steps]);
+	useEffect(() => { setElements(steps); },[steps]);
 	
 	useEffect(() => {
 		document.addEventListener("scroll", handleScroll);
@@ -82,15 +82,18 @@ export const Tour = (props = {}) => {
 		const {name} = event.target?.dataset;
 		const element = elements[index];
 
-		if(name === "highlighter") {
+		if(name === "highlighter" || element.clickAnywhere) {
 			if(element?.action) {
-				const nextMove = element.action();
+				const nextMove = element.action(document.querySelector(element?.target));
 				if(nextMove === true || nextMove === undefined){
 					handleNext();
 				} else if(nextMove === false){
 					setIndex(index)
 				} else if(nextMove >= 0 && nextMove < elements.length){
 					setIndex(nextMove);
+				} else if( typeof nextMove === 'object'){
+					const { timeout = 200 } = nextMove
+					setTimeout( () => handleNext(), timeout)
 				} else {
 					console.error(`the return should be a number of boolean but you returning "${nextMove}"`);
 				}
@@ -98,7 +101,27 @@ export const Tour = (props = {}) => {
 			} else {
 				handleNext();
 			}
-		} else {
+		} else if(name === "highlighter" && element.clickHighlight){
+			if(element?.action) {
+				const nextMove = element.action(document.querySelector(element?.target));
+				if(nextMove === true || nextMove === undefined){
+					handleNext();
+				} else if(nextMove === false){
+					setIndex(index)
+				} else if(nextMove >= 0 && nextMove < elements.length){
+					setIndex(nextMove);
+				} else if( typeof nextMove === 'object'){
+					const { timeout = 200 } = nextMove
+					setTimeout( () => handleNext(), timeout)
+				} else {
+					console.error(`the return should be a number of boolean but you returning "${nextMove}"`);
+				}
+				
+			} else {
+				handleNext();
+			}
+		}
+		else if(!element.clickHighlight) {
 			handleNext();
 		}
 	}
@@ -141,7 +164,7 @@ export const Tour = (props = {}) => {
 	const ele = elements[index];
 	
 	return (
-		<React.Fragment>
+		<>
 			<CloseButton onClose={handleClose}/>
 			 <div
 			 	ref={(input) => { input && input.focus()}}
@@ -177,7 +200,7 @@ export const Tour = (props = {}) => {
 	 		</div>
 	 		<Navigate onWheel={handleScroll} content={content} steps={steps} currentStep={index} handleStep={handleStep}/>
 
-		</React.Fragment>
+			 </>
 	)
 }
 
